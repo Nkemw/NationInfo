@@ -1,7 +1,8 @@
 package Controller;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import View.View;
+import Model.NationDataModel;
+
 import java.util.*;
 
 //Class for test controller
@@ -23,10 +24,10 @@ public class Controller {
         
         /*
         //test code
-        Controller controll = new Controller();
-        controll.addFilter("기후", "?", "온난");
-        controll.deleteFilter("기후", "?", "온난");
-        controll.search();
+        Controller control = new Controller();
+        control.addFilter("기후", "?", "온난");
+        control.deleteFilter("기후", "?", "온난");
+        control.search();
         //ButtonListener button = new ButtonListener(controll);
         //button.pushButton();
         System.out.print("성공\n");

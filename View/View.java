@@ -1,4 +1,6 @@
-package Controller;
+package View;
+
+import Controller.ButtonListener;
 
 import javax.swing.*;
 import java.awt.*;
