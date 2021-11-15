@@ -8,10 +8,10 @@ import java.sql.SQLException;
 
 public class Database {
     private static Database instance = new Database(); //Singleton Pattern
-    private String server_ip; // 
-    private String db_name; //
-    private String user_id; //  id
-    private String passwd; // pw
+    private String server_ip;
+    private String db_name;
+    private String user_id;
+    private String passwd;
     private Connection con;
 
     private Database() {
@@ -54,14 +54,6 @@ public class Database {
     public ResultSet executeSql(String sql) throws SQLException {
         PreparedStatement pstmt = con.prepareStatement(sql);
         ResultSet rs = pstmt.executeQuery();
-
-//        //Example Code
-//        while(rs.next()) {
-//            System.out.print("name: " + rs.getString("contry") + "\t");
-//            System.out.print("code: " + rs.getString("contry_code") + "\n");
-//        }
-//        rs.first();
-
         return rs;
     }
 }
