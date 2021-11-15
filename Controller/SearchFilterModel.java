@@ -3,13 +3,10 @@ package Controller;
 import java.util.*;
 
 public class SearchFilterModel{
-	//private List<SearchFilter> filter_list;
 	private ArrayList<SearchFilter> filter_list;
-	private int filter_num;
 	
 	public SearchFilterModel() {
 		filter_list = new ArrayList<SearchFilter>();
-		filter_num = 0;
 	}
 	
 	//temporary method
@@ -26,30 +23,24 @@ public class SearchFilterModel{
 	}
 	
 	//add
-	public void add(SearchFilter sf) {
-		String type;
-		for(int i = 0; i<filter_num; i++) {
-			type = filter_list.get(i).getType();
-			if(type.equals(sf.getType()))
-					return;
+	public boolean add(SearchFilter new_ft) {
+		for (SearchFilter ft : filter_list) {
+			if (ft.equals(new_ft)) {
+				return false;
+			}
 		}
-		filter_list.add(sf);
-		filter_num++;
-		System.out.print(filter_num + "\n");
+		filter_list.add(new_ft);
+		return true;
 	}
 	
 	//delete
-	public void delete(SearchFilter sf) {
-		String type;
-		for(int i = 0; i<filter_num; i++) {
-			type = filter_list.get(i).getType();
-			if(type.equals(sf.getType())) {
-				filter_list.remove(i);
-				filter_num--;
-				
-				System.out.print(filter_num + "\n");
-				return;
+	public boolean delete(SearchFilter target_ft) {
+		for (SearchFilter ft : filter_list) {
+			if (ft.equals(target_ft)) {
+				filter_list.remove(target_ft);
+				return true;
 			}
 		}
+		return false;
 	}
 }
