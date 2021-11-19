@@ -11,10 +11,8 @@ public class SearchFilterModel {
 	
 	//add
 	public boolean add(SearchFilter new_ft) {
-		for (SearchFilter ft : filter_list) {
-			if (ft.equals(new_ft)) {
-				return false;
-			}
+		if (isIncluded(new_ft)) {
+			return false;
 		}
 		filter_list.add(new_ft);
 		return true;
@@ -22,13 +20,11 @@ public class SearchFilterModel {
 	
 	//delete
 	public boolean delete(SearchFilter target_ft) {
-		for (SearchFilter ft : filter_list) {
-			if (ft.equals(target_ft)) {
-				filter_list.remove(target_ft);
-				return true;
-			}
+		if (!isIncluded(target_ft)) {
+			return false;
 		}
-		return false;
+		filter_list.remove(target_ft);
+		return true;
 	}
 
 	//create sql
@@ -43,11 +39,11 @@ public class SearchFilterModel {
 	}
 
 	//get filter
-	public List<SearchFilter> getFilter() {
+	public ArrayList<SearchFilter> getFilterList() {
 		return filter_list;
 	}
 
-	public boolean isFilter(String target) {
+	public boolean isIncluded(SearchFilter target) {
 		for (SearchFilter filter : filter_list) {
 			if (filter.equals(target)) {
 				return true;

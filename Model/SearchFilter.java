@@ -38,4 +38,14 @@ public class SearchFilter {
 
 		return where_sql;
 	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (obj instanceof SearchFilter && obj != null) {
+			return type == ((SearchFilter) obj).getType() && operation == ((SearchFilter) obj).getOper() && content == ((SearchFilter) obj).getContent();
+		}
+		else {
+			return false;
+		}
+	}
 }
