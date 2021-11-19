@@ -1,8 +1,8 @@
 package Controller;
 
-import View.View;
 import Model.NationDataModel;
-
+import Model.SearchFilter;
+import View.Lessons;
 import java.util.*;
 
 //Class for test controller
@@ -11,13 +11,14 @@ public class Controller {
 	static private ArrayList<String> data_list; //temporary
 	
 	static private NationDataModel data_model;
-	static private View view_client;
+	static private Lessons view_client;
 //	static private SearchFilterModel filter_model;
-	
+
 	//run project
 	public static void main(String[] args) {
 		data_model = new NationDataModel();
-        view_client = new View();
+		view_client = new Lessons();
+		view_client.run();
 	}
 
 	//find data

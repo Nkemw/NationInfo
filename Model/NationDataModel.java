@@ -1,18 +1,14 @@
 package Model;
 
-import java.io.UnsupportedEncodingException;
-import java.sql.Array;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 
 public class NationDataModel {
-	public NationDataModel() {
-
-	}
+	public static String SQL_BASIC = "select contry_code from nation";
+	public static String SQL_ALL = "select * from nation";
 
 	//특정 열 정보 전달
 	public ArrayList<String> getList() {
@@ -20,10 +16,10 @@ public class NationDataModel {
 	}
 
 	//특정 행 정보 전달
-	public HashMap<String, String> getColumn(String contry_name) {
+	public HashMap<String, String> getColumn(String contry_code) {
 		ResultSet sql_res = null; //sql 작업 리턴값
 		HashMap<String, String> res_data = new HashMap<>(); //최종 결과값
-		String sql = String.format("select * from nation where contry='%s'", contry_name);
+		String sql = String.format(SQL_ALL + " where contry_code='%s'", contry_code);
 
 		try {
 			//sql 작업
@@ -47,19 +43,76 @@ public class NationDataModel {
 	public ArrayList<String> find(String type, String value) {
 		ResultSet sql_res = null; //sql 작업 리턴값
 		ArrayList<String> finded = new ArrayList<>();
-		String sql = String.format("select contry, %s from nation where %s like '%%%s%%'", type, type, value);
+		String sql = String.format(SQL_BASIC + " where %s like '%%%s%%'", type, value);
+		System.out.println(sql);
 
 		try {
 			//sql 작업
 			sql_res = Database.getInstance().executeSql(sql);
 			while (sql_res.next()) {
-				finded.add(sql_res.getString("contry"));
+				finded.add(sql_res.getString("contry_code"));
 			}
 		}
 		catch (SQLException e) {
 			e.printStackTrace();
 		}
 		return finded;
+	}
+
+	public ArrayList<String> find(SearchFilter filter) {
+		String sql = String.format(SQL_BASIC + " where %s", filter.getSql());
+		System.out.println(sql);
+
+		ResultSet sql_res = null; //sql 작업 리턴값
+		ArrayList<String> finded = new ArrayList<>();
+		try {
+			//sql 작업
+			sql_res = Database.getInstance().executeSql(sql);
+			while (sql_res.next()) {
+				finded.add(sql_res.getString("contry_code"));
+			}
+		}
+		catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return finded;
+	}
+
+	public ArrayList<String> find(SearchFilterModel filter_model) {
+		String sql = String.format(SQL_BASIC + " where %s", filter_model.getSql());
+		System.out.println(sql);
+
+		ResultSet sql_res = null; //sql 작업 리턴값
+		ArrayList<String> finded = new ArrayList<>();
+		try {
+			//sql 작업
+			sql_res = Database.getInstance().executeSql(sql);
+			while (sql_res.next()) {
+				finded.add(sql_res.getString("contry_code"));
+			}
+		}
+		catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return finded;
+	}
+
+	public String getName(String contry_code) {
+		String contry_name = null;
+
+		ResultSet sql_res = null;
+		String sql = String.format("select contry from nation where contry_code='%s'", contry_code);
+		try {
+			//sql 작업
+			sql_res = Database.getInstance().executeSql(sql);
+			sql_res.next();
+			contry_name = sql_res.getString("contry");
+		}
+		catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		return contry_name;
 	}
 
 	public ResultSet sqlData(String sql) {

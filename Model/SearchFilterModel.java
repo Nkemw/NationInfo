@@ -1,25 +1,12 @@
-package Controller;
+package Model;
 
 import java.util.*;
 
-public class SearchFilterModel{
+public class SearchFilterModel {
 	private ArrayList<SearchFilter> filter_list;
 	
 	public SearchFilterModel() {
 		filter_list = new ArrayList<SearchFilter>();
-	}
-	
-	//temporary method
-	public String getSql() {
-		return "This is SQL sentence";
-	}
-	
-	//get filter(temporary Method)
-	public List<SearchFilter> getFilter() {
-		return filter_list;
-	}
-	public SearchFilter getFilter(int index) {
-		return filter_list.get(index);
 	}
 	
 	//add
@@ -38,6 +25,31 @@ public class SearchFilterModel{
 		for (SearchFilter ft : filter_list) {
 			if (ft.equals(target_ft)) {
 				filter_list.remove(target_ft);
+				return true;
+			}
+		}
+		return false;
+	}
+
+	//create sql
+	public String getSql() {
+		String sql = "";
+		for (SearchFilter filter : filter_list) {
+			sql += filter.getSql();
+			sql += " AND ";
+		}
+		sql = sql.substring(0, sql.length()-5); // 마지막 AND 문 삭제
+		return sql;
+	}
+
+	//get filter
+	public List<SearchFilter> getFilter() {
+		return filter_list;
+	}
+
+	public boolean isFilter(String target) {
+		for (SearchFilter filter : filter_list) {
+			if (filter.equals(target)) {
 				return true;
 			}
 		}
